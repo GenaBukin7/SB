@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,16 +23,46 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
-#include "SbNetwork/INetworkSystem.hpp"
+#include <SbNetwork/SbNetworkSystem.hpp>
 
-class SbNetworkSystem : public INetworkSystem
+//*****************************************************************************
+
+struct sockaddr_in;
+
+namespace sbe
+{
+
+struct SbSystem;
+
+namespace SbNetwork
+{
+
+struct SbNetworkImpl;
+
+class SbNetworkSystemLocal : public SbNetworkSystem
 {
 public:
+	SbNetworkSystemLocal(SbSystem &aSystem, SbNetworkImpl &aImpl);
+	
 	void Init() override;
 	void Shutdown() override;
 	
+	bool StringToNetAdr(const char *asNetAdr, SbNetAdr &aOutNetAdr, bool abDoDNSResolve) override;
+	
+	void SendUDPPakcet(int anNetSocket, int anLength, const void *apData, const netadr_t &aAdrTo) override;
+	bool GetUDPPacket(int anNetSocket, netadr_t &aAdrFrom, char *apData, int &aSize, int anMaxSize) override;
+	
 	int GetLocalIPCount() const override;
 	const char *GetLocalIP(int anIndex) const override;
+private:
+	bool Net_StringToSockaddr(const char *asNetAdr, sockaddr_in *apSockAddr, bool abDoDNSResolve);
+private:
+	SbNetworkImpl &mImpl;
+	SbSystem &mSystem;
 };
+
+};}; // sbe::SbNetwork

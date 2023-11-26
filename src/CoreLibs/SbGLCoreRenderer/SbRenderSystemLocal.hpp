@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -24,14 +24,14 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include <list> // TODO: temp
 
-#include "CoreLibs/SbRenderer/IRenderSystem.hpp"
+#include <CoreLibs/SbRenderer/SbRenderSystem.hpp>
 
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 namespace SbGLCoreRenderer
 {
@@ -39,10 +39,10 @@ namespace SbGLCoreRenderer
 class SbRenderWorld;
 using tRenderWorldList = std::list<SbRenderWorld*>; // TODO: SbList
 
-class SbRenderSystem : public IRenderSystem
+class SbRenderSystemLocal : public SbRenderSystem
 {
 public:
-	SbRenderSystem(const IWindow &aWindow, ISystem &aSystem);
+	SbRenderSystem(const SbWindow &aWindow, SbSystem &aSystem);
 	virtual ~SbRenderSystem() = default;
 	
 	//ISystem &GetSystem() const {return mSystem;} // TODO
@@ -58,8 +58,8 @@ public:
 	
 	//void EndFrame();
 	
-	IRenderWorld *AllocWorld() override;
-	void FreeWorld(IRenderWorld *apWorld) override;
+	SbRenderWorld *AllocWorld() override;
+	void FreeWorld(SbRenderWorld *apWorld) override;
 	
 	void BeginLevelLoad() override;
 	void EndLevelLoad() override;
@@ -93,8 +93,8 @@ private:
 	
 	glimpParms_t glConfig{};
 	
-	ISystem &mSystem;
-	const IWindow &mWindow;
+	SbSystem &mSystem;
+	const SbWindow &mWindow;
 	
 	SbRenderWorld *mpPrimaryWorld{nullptr};
 	SbRenderContext *mpContext{nullptr};

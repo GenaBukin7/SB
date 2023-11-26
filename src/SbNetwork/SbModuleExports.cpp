@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -30,7 +30,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbNetwork/SbModuleAPI.hpp"
 
-#include "SbNetworkSystem.hpp"
+#include "SbNetworkSystemLocal.hpp"
 #include "SbNetworkNull.hpp"
 
 #ifdef _WIN32
@@ -49,7 +49,7 @@ C_EXPORT sbe::netExport_t *GetNetworkAPI(sbe::netImport_t *apModuleImports)
 	{
 		static sbe::SbSystem &System = *apModuleImports->sys;
 		static sbe::SbNetwork::SbNetworkNull NetworkNull;
-		static sbe::SbNetwork::SbNetworkSystem NetworkSystem(System, NetworkNull);
+		static sbe::SbNetwork::SbNetworkSystemLocal NetworkSystem(System, NetworkNull);
 		
 		static sbe::netExport_t ModuleExports;
 		

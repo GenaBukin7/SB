@@ -4,7 +4,7 @@
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,21 +31,21 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "SbRenderSystem.hpp"
-#include "SbRenderWorld.hpp"
+#include "SbRenderSystemLocal.hpp"
+#include "SbRenderWorldLocal.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
-#include "AppFrameworks/SbClientApp/IWindow.hpp"
+#include <AppFrameworks/SbClientApp/SbWindow.hpp>
 
 //*****************************************************************************
 
 namespace sbe::SbGLCoreRenderer
 {
 
-SbRenderSystem::SbRenderSystem(const IWindow &aWindow, ISystem &aSystem) : mWindow(aWindow), mSystem(aSystem){}
+SbRenderSystemLocal::SbRenderSystemLocal(const SbWindow &aWindow, SbSystem &aSystem) : mWindow(aWindow), mSystem(aSystem){}
 
-void SbRenderSystem::Init()
+void SbRenderSystemLocal::Init()
 {
 	mSystem.Printf("------- Initializing renderSystem --------\n");
 	
@@ -62,7 +62,7 @@ void SbRenderSystem::Init()
 idRenderSystemLocal::Shutdown
 ===============
 */
-void SbRenderSystem::Shutdown()
+void SbRenderSystemLocal::Shutdown()
 {
 	mSystem.Printf("idRenderSystem::Shutdown()\n");
 
@@ -102,7 +102,7 @@ void SbRenderSystem::Shutdown()
 	mbInitialized = false;
 };
 
-void SbRenderSystem::Restart()
+void SbRenderSystemLocal::Restart()
 {
 	// if OpenGL isn't started, do nothing
 	if(!IsInitialized())
@@ -189,14 +189,14 @@ void SbRenderSystem::Restart()
 #endif
 };
 
-IRenderWorld *SbRenderSystem::AllocWorld()
+SbRenderWorld *SbRenderSystemLocal::AllocWorld()
 {
-	auto pWorld{new SbRenderWorld()};
+	auto pWorld{new SbRenderWorldLocal()};
 	mlstWorlds.push_back(pWorld);
 	return pWorld;
 };
 
-void SbRenderSystem::FreeWorld(IRenderWorld *apWorld)
+void SbRenderSystemLocal::FreeWorld(SbRenderWorld *apWorld)
 {
 	if(apWorld)
 	{
@@ -210,7 +210,7 @@ void SbRenderSystem::FreeWorld(IRenderWorld *apWorld)
 idRenderSystemLocal::Clear
 ===============
 */
-void SbRenderSystem::Clear()
+void SbRenderSystemLocal::Clear()
 {
 };
 
@@ -235,7 +235,7 @@ all renderSystem functions will still operate properly, notably the material
 and model information functions.
 ==================
 */
-void SbRenderSystem::InitOpenGL()
+void SbRenderSystemLocal::InitOpenGL()
 {
 	// if OpenGL isn't started, start it now
 	if(!IsInitialized())
@@ -359,7 +359,7 @@ void SbRenderSystem::InitOpenGL()
 idRenderSystemLocal::ShutdownOpenGL
 ========================
 */
-void SbRenderSystem::ShutdownOpenGL()
+void SbRenderSystemLocal::ShutdownOpenGL()
 {
 	// free the context
 	//R_ShutdownFrameData(); // TODO
@@ -367,11 +367,11 @@ void SbRenderSystem::ShutdownOpenGL()
 	//backend.Shutdown(); // TODO
 };
 
-void SbRenderSystem::BeginLevelLoad()
+void SbRenderSystemLocal::BeginLevelLoad()
 {
 };
 
-void SbRenderSystem::EndLevelLoad()
+void SbRenderSystemLocal::EndLevelLoad()
 {
 };
 

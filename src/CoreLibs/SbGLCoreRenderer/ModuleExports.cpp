@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -21,7 +21,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#include "SbRenderSystem.hpp"
+#include "SbRenderSystemLocal.hpp"
 
 #include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
 
@@ -39,7 +39,7 @@ C_EXPORT sbe::rendererExport_t *GetRendererAPI(sbe::rendererImport_t *apModuleIm
 {
 	if(apModuleImports->version == sbe::RENDERER_API_VERSION)
 	{
-		static sbe::SbGLCoreRenderer::SbRenderSystem RenderSystem(*apModuleImports->sys);
+		static sbe::SbGLCoreRenderer::SbRenderSystemLocal RenderSystem(*apModuleImports->sys);
 		
 		static sbe::rendererExport_t ModuleExports;
 		
