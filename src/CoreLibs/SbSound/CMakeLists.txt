@@ -1,4 +1,4 @@
-project(SBE-sound)
+project(sbe-sound)
 
 option(SBE_USE_OPENAL "Use OpenAL for sound module backend" OFF)
 

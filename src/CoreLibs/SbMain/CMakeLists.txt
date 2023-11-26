@@ -1,4 +1,4 @@
-project(SBE-main)
+project(sbe-main)
 
 add_library(${PROJECT_NAME} STATIC)
 

@@ -1,4 +1,4 @@
-project(SBE-renderer)
+project(sbe-renderer-glcore)
 
 file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp

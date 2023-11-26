@@ -1,4 +1,4 @@
-project(SBE-system)
+project(sbe-system)
 
 if(SBE_SINGLE_BINARY)
 	set(LIB_TYPE STATIC)
