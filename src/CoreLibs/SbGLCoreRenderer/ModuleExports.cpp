@@ -23,7 +23,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include "SbRenderSystemLocal.hpp"
 
-#include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
+#include <CoreLibs/SbRenderer/SbModuleAPI.hpp>
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]

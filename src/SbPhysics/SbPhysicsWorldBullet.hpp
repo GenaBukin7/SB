@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 2008-2018 OpenMW contributors
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,7 +23,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
-#include "SbPhysics/SbPhysicsWorld.hpp"
+#include <SbPhysics/SbPhysicsWorld.hpp>
 
 //*****************************************************************************
 

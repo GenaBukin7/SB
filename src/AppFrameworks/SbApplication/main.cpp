@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 2008-2018 OpenMW Developers
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -21,7 +21,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#include "AppFrameworks/SbApplication/SbApplication.hpp"
+#include <AppFrameworks/SbApplication/SbApplication.hpp>
 
 #ifdef _WIN32
 //#	ifndef WIN32_LEAN_AND_MEAN

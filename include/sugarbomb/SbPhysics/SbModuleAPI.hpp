@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,14 +34,14 @@ namespace sbe
 
 constexpr auto PHYSICS_API_VERSION{1};
 
-struct ISystem;
+struct SbSystem;
 struct SbPhysicsSystem;
 
 struct physicsImport_t
 {
 	int version{-1};
 	
-	ISystem *sys{nullptr};
+	SbSystem *sys{nullptr};
 };
 
 struct physicsExport_t

@@ -1,4 +1,4 @@
-project(SBE-input)
+project(sbe-input)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -15,7 +15,7 @@ endif()
 
 list(APPEND PROJECT_SOURCES ${PROJECT_SOURCES_PLATFORM})
 
-if(SBE_SINGLE_BINARY)
+if(SBE_INPUT_HARD_LINKED)
 	set(LIB_TYPE STATIC)
 else()
 	set(LIB_TYPE MODULE)
@@ -29,7 +29,7 @@ if(WIN32)
 	target_link_libraries(${PROJECT_NAME} dxguid dinput8 XInput1_3)
 endif()
 
-if(NOT SBE_SINGLE_BINARY)
+if(NOT SBE_INPUT_HARD_LINKED)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbInput"
 	)

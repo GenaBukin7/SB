@@ -48,30 +48,30 @@ namespace sbe
 /*
 ===============================================================================
 
-	Renderer API.
+	Renderer API
 
 ===============================================================================
 */
 
-const int RENDERER_API_VERSION		= 1;
+constexpr auto RENDERER_API_VERSION{1};
 
 struct SbRenderSystem;
 struct IRenderModelManager;
-struct ISystem;
+struct SbSystem;
 struct idCmdSystem;
 struct idCVarSystem;
-struct IFileSystem;
-struct ISoundSystem;
+struct SbFileSystem;
+struct SbSoundSystem;
 struct idDeclManager;
 
 struct rendererImport_t
 {
 	int							version;				// API version
-	ISystem* 					sys;					// non-portable system services
+	SbSystem* 					sys;					// non-portable system services
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	IFileSystem* 				fileSystem;				// file system
-	ISoundSystem* 				soundSystem;			// sound system
+	SbFileSystem* 				fileSystem;				// file system
+	SbSoundSystem* 				soundSystem;			// sound system
 	idDeclManager*				declManager;			// declaration manager
 	//idUserInterfaceManager* 	uiManager;				// user interface manager
 };

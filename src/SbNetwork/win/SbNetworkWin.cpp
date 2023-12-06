@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -40,14 +40,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbNetworkWin.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 
 namespace sbe::SbNetwork
 {
 
-SbNetworkWin::SbNetworkWin(ISystem &aSystem) : mSystem(aSystem){}
+SbNetworkWin::SbNetworkWin(SbSystem &aSystem) : mSystem(aSystem){}
 
 void SbNetworkWin::Init()
 {

@@ -60,7 +60,7 @@ struct SbGameEdit;
 struct SbGameShell;
 
 struct SbSystem;
-struct IGameFramework;
+struct SbGameFramework;
 struct idCmdSystem;
 struct idCVarSystem;
 struct SbFileSystem;

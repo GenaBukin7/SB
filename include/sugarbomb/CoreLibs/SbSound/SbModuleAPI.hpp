@@ -36,17 +36,17 @@ namespace sbe
 /*
 ===============================================================================
 
-	Sound API.
+	Sound API
 
 ===============================================================================
 */
 
 constexpr auto SOUND_API_VERSION{1};
 
-struct ISystem;
+struct SbSystem;
 struct idCmdSystem;
 struct idCVarSystem;
-struct IFileSystem;
+struct SbFileSystem;
 struct IDeclManager;
 
 struct SbSoundSystem;
@@ -54,13 +54,13 @@ struct SbSoundSystem;
 struct soundImport_t
 {
 	int							version;				///< API version
-	ISystem* 					sys;					///< non-portable system services
+	SbSystem* 					sys;					///< non-portable system services
 	idCmdSystem* 				cmdSystem;				///< console command system
 	idCVarSystem* 				cvarSystem;				///< console variable system
-	IFileSystem* 				fileSystem;				///< file system
-	//IRenderSystem* 			renderSystem;			///< render system
+	SbFileSystem* 				fileSystem;				///< file system
+	//SbRenderSystem* 			renderSystem;			///< render system
 	//IRenderModelManager* 		renderModelManager;		///< render model manager
-	//IUserInterfaceManager* 	uiManager;				///< user interface manager
+	//SbUserInterfaceManager* 	uiManager;				///< user interface manager
 	IDeclManager* 				declManager;			///< declaration manager
 	//IAASFileManager* 			AASFileManager;			///< AAS file manager
 	//ICollisionModelManager* 	collisionModelManager;	///< collision model manager

@@ -28,14 +28,14 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //#include "precompiled.h"
 #include <cassert>
 
-#include "AppFrameworks/SbClientApp/SbClientApp.hpp"
-#include "AppFrameworks/SbClientApp/SbWindow.hpp"
+#include <AppFrameworks/SbClientApp/SbClientApp.hpp>
+#include <AppFrameworks/SbClientApp/SbWindow.hpp>
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
-#include "CoreLibs/SbRenderer/IRenderSystem.hpp"
+#include <CoreLibs/SbRenderer/SbRenderSystem.hpp>
 
-#include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
+#include <AppFrameworks/UtilityLibs/SbInput/SbInputSystem.hpp>
 
 //*****************************************************************************
 
@@ -43,7 +43,7 @@ namespace sbe
 {
 
 SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv)
+	SbRenderSystem &aRenderSystem, SbInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv)
 	: SbApplication(aSystem, argc, argv), mRenderSystem(aRenderSystem), mInputSystem(aInputSystem)
 {
 	mpWindow.reset(CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen));
@@ -60,7 +60,7 @@ SbClientApp::~SbClientApp()
 	mRenderSystem.Shutdown();
 };
 
-void SbClientApp::Run()
+int SbClientApp::Run()
 {
 	assert(mbInitialized);
 
@@ -93,6 +93,8 @@ void SbClientApp::Run()
 			// TODO: sleep?
 		};
 	};
+	
+	return EXIT_SUCCESS;
 };
 
 void SbClientApp::PostFrame()

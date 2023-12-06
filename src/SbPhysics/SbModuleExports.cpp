@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,7 +23,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include <functional>
 
-#include "SbPhysics/SbModuleAPI.hpp"
+#include <SbPhysics/SbModuleAPI.hpp>
 
 #include "SbPhysicsSystemBullet.hpp"
 
@@ -41,7 +41,7 @@ C_EXPORT sbe::physicsExport_t *GetPhysicsAPI(sbe::physicsImport_t *apModuleImpor
 {
 	if(apModuleImports->version == sbe::PHYSICS_API_VERSION)
 	{
-		static sbe::ISystem &System = *apModuleImports->sys;
+		static sbe::SbSystem &System = *apModuleImports->sys;
 		static sbe::SbPhysics::SbPhysicsSystemBullet PhysicsSystem(System);
 		
 		static sbe::physicsExport_t ModuleExports;

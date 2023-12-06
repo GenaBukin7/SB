@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -22,14 +22,14 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
-#include "SbPhysics/SbPhysicsSystem.hpp"
+#include <SbPhysics/SbPhysicsSystem.hpp>
 
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 namespace SbPhysics
 {
@@ -37,7 +37,7 @@ namespace SbPhysics
 class SbPhysicsSystemBullet final : public SbPhysicsSystem
 {
 public:
-	SbPhysicsSystemBullet(ISystem &aSystem);
+	SbPhysicsSystemBullet(SbSystem &aSystem);
 	
 	void Init() override;
 	void Shutdown() override;
@@ -45,7 +45,7 @@ public:
 	SbPhysicsWorld *AllocWorld() override;
 	void FreeWorld(SbPhysicsWorld *apWorld) override;
 private:
-	ISystem &mSystem;
+	SbSystem &mSystem;
 };
 
 };}; // namespace sbe::SbPhysics

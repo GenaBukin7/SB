@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020, 2022 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2022-2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -26,7 +26,7 @@ You should have received a copy of the GNU General Public License along with Sug
 #include <string>
 #include <memory>
 
-#include "AppFrameworks/SbApplication/SbApplication.hpp"
+#include <AppFrameworks/SbApplication/SbApplication.hpp>
 
 //*****************************************************************************
 
@@ -34,18 +34,18 @@ namespace sbe
 {
 
 struct SbSystem;
-struct IRenderSystem;
-struct IInputSystem;
+struct SbRenderSystem;
+struct SbInputSystem;
 struct IWindow;
 
 class SbClientApp : public SbApplication
 {
 public:
 	SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv);
+	SbRenderSystem &aRenderSystem, SbInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 	
-	void Run() override;
+	int Run() override;
 protected:
 	/**
 	 * This method is getting called before the start of each frame,
@@ -77,8 +77,8 @@ private:
 private:
 	std::unique_ptr<IWindow> mpWindow;
 
-	IRenderSystem &mRenderSystem;
-	IInputSystem &mInputSystem;
+	SbRenderSystem &mRenderSystem;
+	SbInputSystem &mInputSystem;
 	
 	int mnUPS{0};
 };

@@ -33,7 +33,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct IFile;
+struct SbFile;
 
 struct SbFileSystem
 {

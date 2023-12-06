@@ -42,7 +42,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbSystemDescImpl.hpp"
 
-#include "CoreLibs/SbSystem/SbSystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 

@@ -1,6 +1,6 @@
 project(sbe-system)
 
-if(SBE_SINGLE_BINARY)
+if(SBE_SYSTEM_HARD_LINKED)
 	set(LIB_TYPE STATIC)
 else()
 	set(LIB_TYPE MODULE)
@@ -25,7 +25,7 @@ elseif(UNIX)
 	add_subdirectory(posix)
 endif()
 
-if(NOT SBE_SINGLE_BINARY)
+if(NOT SBE_SYSTEM_HARD_LINKED)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbSystem"
 	)

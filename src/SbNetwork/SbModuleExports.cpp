@@ -28,7 +28,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include <functional>
 
-#include "SbNetwork/SbModuleAPI.hpp"
+#include <SbNetwork/SbModuleAPI.hpp>
 
 #include "SbNetworkSystemLocal.hpp"
 #include "SbNetworkNull.hpp"
@@ -48,6 +48,7 @@ C_EXPORT sbe::netExport_t *GetNetworkAPI(sbe::netImport_t *apModuleImports)
 	if(apModuleImports->version == sbe::NET_API_VERSION)
 	{
 		static sbe::SbSystem &System = *apModuleImports->sys;
+		
 		static sbe::SbNetwork::SbNetworkNull NetworkNull;
 		static sbe::SbNetwork::SbNetworkSystemLocal NetworkSystem(System, NetworkNull);
 		

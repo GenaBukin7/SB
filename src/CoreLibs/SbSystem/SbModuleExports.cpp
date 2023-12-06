@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,10 +23,10 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include <functional>
 
-#include "CoreLibs/SbSystem/SbModuleAPI.hpp"
+#include <CoreLibs/SbSystem/SbModuleAPI.hpp>
 
 #include "SbSystemCommon.hpp"
-#include "SbFileSystem.hpp"
+#include "SbFileSystemLocal.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]

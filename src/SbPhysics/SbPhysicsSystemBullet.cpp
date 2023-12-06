@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,14 +23,14 @@ You should have received a copy of the GNU General Public License along with Sug
 #include "SbPhysicsSystemBullet.hpp"
 #include "SbPhysicsWorldBullet.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 
 namespace sbe::SbPhysics
 {
 
-SbPhysicsSystemBullet::SbPhysicsSystemBullet(ISystem &aSystem) : mSystem(aSystem){}
+SbPhysicsSystemBullet::SbPhysicsSystemBullet(SbSystem &aSystem) : mSystem(aSystem){}
 
 void SbPhysicsSystemBullet::Init()
 {
