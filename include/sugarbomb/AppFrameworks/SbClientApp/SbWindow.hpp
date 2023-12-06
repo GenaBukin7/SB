@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -32,24 +32,25 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct IWindow
+struct SbWindow
 {
 	struct Props
 	{
 		void *mpHandle{nullptr};
 		
-		const char *msTitle{""};
+		const char *msTitle{""}; // TODO: use wide char?
 
-		int mnPosX{-1};
-		int mnPosY{-1};
+		int mnPosX{0};
+		int mnPosY{0};
 
-		int mnWidth{-1};
-		int mnHeight{-1};
+		int mnWidth{0};
+		int mnHeight{0};
 
 		bool mbFullScreen{false};
 		bool mbBorder{false};
 	};
 	
+	///
 	virtual const Props &GetProps() const = 0;
 };
 

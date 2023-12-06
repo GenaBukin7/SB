@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace sbe
 {
 
-struct IWindow;
+struct SbWindow;
 
 struct SbKeyboard;
 struct SbMouse;
@@ -39,7 +39,7 @@ namespace SbInput
 struct SbInputImpl
 {
 	///
-	virtual void Init(const IWindow &aOwnerWindow) = 0;
+	virtual void Init(const SbWindow &aOwnerWindow) = 0;
 	
 	///
 	virtual void Update() = 0;

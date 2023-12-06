@@ -65,7 +65,7 @@ struct SbInputSystem
 	 *
 	 * @param aOwnerWindow - a reference to the window that the input system will attach to
 	 */
-	virtual void Init(const IWindow &aOwnerWindow) = 0;
+	virtual void Init(const SbWindow &aOwnerWindow) = 0;
 
 	/// Shuts down the input system
 	virtual void Shutdown() = 0;

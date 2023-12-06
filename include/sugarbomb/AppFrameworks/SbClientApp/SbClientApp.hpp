@@ -36,7 +36,7 @@ namespace sbe
 struct SbSystem;
 struct SbRenderSystem;
 struct SbInputSystem;
-struct IWindow;
+struct SbWindow;
 
 class SbClientApp : public SbApplication
 {
@@ -61,7 +61,7 @@ protected:
 	/// This method can be used to do things at the end of each frame
 	//virtual void PostFrame(){}
 private:
-	IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
+	SbWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
 
 	bool PreFrame();
 	//void RunFrame();
@@ -75,7 +75,7 @@ private:
 	
 	float GetTimeStep() const {return 1.0f / mnUPS;}
 private:
-	std::unique_ptr<IWindow> mpWindow;
+	std::unique_ptr<SbWindow> mpWindow;
 
 	SbRenderSystem &mRenderSystem;
 	SbInputSystem &mInputSystem;
