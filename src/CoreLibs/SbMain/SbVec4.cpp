@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,7 +29,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "CoreLibs/SbMain/SbVec4.hpp"
+#include <CoreLibs/SbMain/SbVec4.hpp>
+
+#include <CoreLibs/SbMain/SbString.hpp>
 
 //*****************************************************************************
 
@@ -42,16 +44,16 @@ namespace sbe::SbMain
 //
 //===============================================================
 
-idVec4 vec4_origin( 0.0f, 0.0f, 0.0f, 0.0f );
+SbVec4 vec4_origin( 0.0f, 0.0f, 0.0f, 0.0f );
 
 /*
 =============
 idVec4::ToString
 =============
 */
-const char* idVec4::ToString( int precision ) const
+const char* SbVec4::ToString( int precision ) const
 {
-	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
+	return SbString::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
 
 /*
@@ -61,7 +63,7 @@ Lerp
 Linearly inperpolates one vector to another.
 =============
 */
-void idVec4::Lerp( const idVec4& v1, const idVec4& v2, const float l )
+void SbVec4::Lerp( const SbVec4& v1, const SbVec4& v2, const float l )
 {
 	if( l <= 0.0f )
 	{

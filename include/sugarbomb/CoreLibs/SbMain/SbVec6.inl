@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -157,32 +157,32 @@ ID_INLINE bool SbVec6::Compare( const SbVec6& a ) const
 
 ID_INLINE bool SbVec6::Compare( const SbVec6& a, const float epsilon ) const
 {
-	if( idMath::Fabs( p[0] - a[0] ) > epsilon )
+	if( SbMath::Fabs( p[0] - a[0] ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( p[1] - a[1] ) > epsilon )
+	if( SbMath::Fabs( p[1] - a[1] ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( p[2] - a[2] ) > epsilon )
+	if( SbMath::Fabs( p[2] - a[2] ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( p[3] - a[3] ) > epsilon )
+	if( SbMath::Fabs( p[3] - a[3] ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( p[4] - a[4] ) > epsilon )
+	if( SbMath::Fabs( p[4] - a[4] ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( p[5] - a[5] ) > epsilon )
+	if( SbMath::Fabs( p[5] - a[5] ) > epsilon )
 	{
 		return false;
 	}
@@ -217,7 +217,7 @@ ID_INLINE void SbVec6::Zero()
 
 ID_INLINE float SbVec6::Length() const
 {
-	return ( float )idMath::Sqrt( p[0] * p[0] + p[1] * p[1] + p[2] * p[2] + p[3] * p[3] + p[4] * p[4] + p[5] * p[5] );
+	return ( float )SbMath::Sqrt( p[0] * p[0] + p[1] * p[1] + p[2] * p[2] + p[3] * p[3] + p[4] * p[4] + p[5] * p[5] );
 }
 
 ID_INLINE float SbVec6::LengthSqr() const
@@ -230,7 +230,7 @@ ID_INLINE float SbVec6::Normalize()
 	float sqrLength, invLength;
 	
 	sqrLength = p[0] * p[0] + p[1] * p[1] + p[2] * p[2] + p[3] * p[3] + p[4] * p[4] + p[5] * p[5];
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	p[0] *= invLength;
 	p[1] *= invLength;
 	p[2] *= invLength;
@@ -245,7 +245,7 @@ ID_INLINE float SbVec6::NormalizeFast()
 	float sqrLength, invLength;
 	
 	sqrLength = p[0] * p[0] + p[1] * p[1] + p[2] * p[2] + p[3] * p[3] + p[4] * p[4] + p[5] * p[5];
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	p[0] *= invLength;
 	p[1] *= invLength;
 	p[2] *= invLength;

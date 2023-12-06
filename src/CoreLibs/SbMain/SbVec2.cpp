@@ -32,6 +32,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include <cmath>
 
 #include <CoreLibs/SbMain/SbVec2.hpp>
+#include <CoreLibs/SbMain/SbString.hpp>
 
 //*****************************************************************************
 
@@ -53,7 +54,7 @@ idVec2::ToString
 */
 const char *SbVec2::ToString(int precision) const
 {
-	return SbStr::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
+	return SbString::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
 };
 
 /*

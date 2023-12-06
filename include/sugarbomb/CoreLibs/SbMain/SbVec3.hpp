@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,10 +31,19 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbMath.hpp"
+
+#include <CoreLibs/SbSystem/SbSystemDefs.hpp>
+
 //*****************************************************************************
 
 namespace sbe::SbMain
 {
+
+class SbAngles;
+class SbPolar3;
+class SbMat3;
+class SbVec2;
 
 //===============================================================
 //
@@ -100,9 +109,9 @@ public:
 	
 	float			ToYaw() const;
 	float			ToPitch() const;
-	idAngles		ToAngles() const;
-	idPolar3		ToPolar() const;
-	idMat3			ToMat3() const;		// vector should be normalized
+	SbAngles		ToAngles() const;
+	SbPolar3		ToPolar() const;
+	SbMat3			ToMat3() const;		// vector should be normalized
 	const SbVec2& 	ToVec2() const;
 	SbVec2& 		ToVec2();
 	const float* 	ToFloatPtr() const;

@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,10 +31,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbMath.hpp"
+
+#include <CoreLibs/SbSystem/SbSystemDefs.hpp>
+
 //*****************************************************************************
 
 namespace sbe::SbMain
 {
+
+class SbVec2;
+class SbVec3;
 
 //===============================================================
 //

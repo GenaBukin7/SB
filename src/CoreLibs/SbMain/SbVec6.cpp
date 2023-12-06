@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,7 +29,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "CoreLibs/SbMain/SbVec6.hpp"
+#include <CoreLibs/SbMain/SbVec6.hpp>
+
+#include <CoreLibs/SbMain/SbString.hpp>
 
 //*****************************************************************************
 
@@ -43,7 +45,7 @@ namespace sbe::SbMain
 //===============================================================
 
 SbVec6 vec6_origin(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-SbVec6 vec6_infinity(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY, idMath::INFINITY, idMath::INFINITY, idMath::INFINITY);
+SbVec6 vec6_infinity(SbMath::INFINITY, SbMath::INFINITY, SbMath::INFINITY, SbMath::INFINITY, SbMath::INFINITY, SbMath::INFINITY);
 
 /*
 =============
@@ -52,7 +54,7 @@ idVec6::ToString
 */
 const char *SbVec6::ToString(int precision) const
 {
-	return idStr::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
+	return SbString::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
 };
 
 }; // namespace sbe::SbMain

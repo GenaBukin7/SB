@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,7 +29,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "CoreLibs/SbMain/SbVec3.hpp"
+#include <CoreLibs/SbMain/SbVec3.hpp>
+#include <CoreLibs/SbMain/SbAngles.hpp>
+#include <CoreLibs/SbMain/SbPolar3.hpp>
+#include <CoreLibs/SbMain/SbMatrix3.hpp>
+//#include <CoreLibs/SbMain/SbVec2.hpp>
+
+#include <CoreLibs/SbMain/SbString.hpp>
 
 //*****************************************************************************
 
@@ -49,7 +55,7 @@ SbVec3 vec3_origin(0.0f, 0.0f, 0.0f);
 idVec3::ToYaw
 =============
 */
-float idVec3::ToYaw() const
+float SbVec3::ToYaw() const
 {
 	float yaw;
 	
@@ -59,7 +65,7 @@ float idVec3::ToYaw() const
 	}
 	else
 	{
-		yaw = RAD2DEG( atan2( y, x ) );
+		yaw = SbMath::Rad2Deg( atan2( y, x ) );
 		if( yaw < 0.0f )
 		{
 			yaw += 360.0f;
@@ -74,7 +80,7 @@ float idVec3::ToYaw() const
 idVec3::ToPitch
 =============
 */
-float idVec3::ToPitch() const
+float SbVec3::ToPitch() const
 {
 	float	forward;
 	float	pitch;
@@ -92,8 +98,8 @@ float idVec3::ToPitch() const
 	}
 	else
 	{
-		forward = ( float )idMath::Sqrt( x * x + y * y );
-		pitch = RAD2DEG( atan2( z, forward ) );
+		forward = ( float )SbMath::Sqrt( x * x + y * y );
+		pitch = SbMath::Rad2Deg( atan2( z, forward ) );
 		if( pitch < 0.0f )
 		{
 			pitch += 360.0f;
@@ -108,7 +114,7 @@ float idVec3::ToPitch() const
 idVec3::ToAngles
 =============
 */
-idAngles idVec3::ToAngles() const
+SbAngles SbVec3::ToAngles() const
 {
 	float forward;
 	float yaw;
@@ -128,21 +134,21 @@ idAngles idVec3::ToAngles() const
 	}
 	else
 	{
-		yaw = RAD2DEG( atan2( y, x ) );
+		yaw = SbMath::Rad2Deg( atan2( y, x ) );
 		if( yaw < 0.0f )
 		{
 			yaw += 360.0f;
 		}
 		
-		forward = ( float )idMath::Sqrt( x * x + y * y );
-		pitch = RAD2DEG( atan2( z, forward ) );
+		forward = ( float )SbMath::Sqrt( x * x + y * y );
+		pitch = SbMath::Rad2Deg( atan2( z, forward ) );
 		if( pitch < 0.0f )
 		{
 			pitch += 360.0f;
 		}
 	}
 	
-	return idAngles( -pitch, yaw, 0.0f );
+	return SbAngles( -pitch, yaw, 0.0f );
 }
 
 /*
@@ -150,7 +156,7 @@ idAngles idVec3::ToAngles() const
 idVec3::ToPolar
 =============
 */
-idPolar3 idVec3::ToPolar() const
+SbPolar3 SbVec3::ToPolar() const
 {
 	float forward;
 	float yaw;
@@ -170,20 +176,20 @@ idPolar3 idVec3::ToPolar() const
 	}
 	else
 	{
-		yaw = RAD2DEG( atan2( y, x ) );
+		yaw = SbMath::Rad2Deg( atan2( y, x ) );
 		if( yaw < 0.0f )
 		{
 			yaw += 360.0f;
 		}
 		
-		forward = ( float )idMath::Sqrt( x * x + y * y );
-		pitch = RAD2DEG( atan2( z, forward ) );
+		forward = ( float )SbMath::Sqrt( x * x + y * y );
+		pitch = SbMath::Rad2Deg( atan2( z, forward ) );
 		if( pitch < 0.0f )
 		{
 			pitch += 360.0f;
 		}
 	}
-	return idPolar3( idMath::Sqrt( x * x + y * y + z * z ), yaw, -pitch );
+	return SbPolar3( SbMath::Sqrt( x * x + y * y + z * z ), yaw, -pitch );
 }
 
 /*
@@ -191,9 +197,9 @@ idPolar3 idVec3::ToPolar() const
 idVec3::ToMat3
 =============
 */
-idMat3 idVec3::ToMat3() const
+SbMat3 SbVec3::ToMat3() const
 {
-	idMat3	mat;
+	SbMat3	mat;
 	float	d;
 	
 	mat[0] = *this;
@@ -206,7 +212,7 @@ idMat3 idVec3::ToMat3() const
 	}
 	else
 	{
-		d = idMath::InvSqrt( d );
+		d = SbMath::InvSqrt( d );
 		mat[1][0] = -y * d;
 		mat[1][1] = x * d;
 		mat[1][2] = 0.0f;
@@ -221,9 +227,9 @@ idMat3 idVec3::ToMat3() const
 idVec3::ToString
 =============
 */
-const char* idVec3::ToString( int precision ) const
+const char* SbVec3::ToString( int precision ) const
 {
-	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
+	return SbString::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
 
 /*
@@ -233,7 +239,7 @@ Lerp
 Linearly inperpolates one vector to another.
 =============
 */
-void idVec3::Lerp( const idVec3& v1, const idVec3& v2, const float l )
+void SbVec3::Lerp( const SbVec3& v1, const SbVec3& v2, const float l )
 {
 	if( l <= 0.0f )
 	{
@@ -259,7 +265,7 @@ Vectors are expected to be normalized.
 */
 #define LERP_DELTA 1e-6
 
-void idVec3::SLerp( const idVec3& v1, const idVec3& v2, const float t )
+void SbVec3::SLerp( const SbVec3& v1, const SbVec3& v2, const float t )
 {
 	float omega, cosom, sinom, scale0, scale1;
 	
@@ -298,7 +304,7 @@ ProjectSelfOntoSphere
 Projects the z component onto a sphere.
 =============
 */
-void idVec3::ProjectSelfOntoSphere( const float radius )
+void SbVec3::ProjectSelfOntoSphere( const float radius )
 {
 	float rsqr = radius * radius;
 	float len = Length();

@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -168,17 +168,17 @@ ID_INLINE bool SbVec3::Compare( const SbVec3& a ) const
 
 ID_INLINE bool SbVec3::Compare( const SbVec3& a, const float epsilon ) const
 {
-	if( idMath::Fabs( x - a.x ) > epsilon )
+	if( SbMath::Fabs( x - a.x ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( y - a.y ) > epsilon )
+	if( SbMath::Fabs( y - a.y ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( z - a.z ) > epsilon )
+	if( SbMath::Fabs( z - a.z ) > epsilon )
 	{
 		return false;
 	}
@@ -201,7 +201,7 @@ ID_INLINE float SbVec3::NormalizeFast()
 	float sqrLength, invLength;
 	
 	sqrLength = x * x + y * y + z * z;
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	x *= invLength;
 	y *= invLength;
 	z *= invLength;
@@ -276,7 +276,7 @@ ID_INLINE bool SbVec3::FixDegenerateNormal()
 			return false;
 		}
 	}
-	if( idMath::Fabs( x ) == 1.0f )
+	if( SbMath::Fabs( x ) == 1.0f )
 	{
 		if( y != 0.0f || z != 0.0f )
 		{
@@ -285,7 +285,7 @@ ID_INLINE bool SbVec3::FixDegenerateNormal()
 		}
 		return false;
 	}
-	else if( idMath::Fabs( y ) == 1.0f )
+	else if( SbMath::Fabs( y ) == 1.0f )
 	{
 		if( x != 0.0f || z != 0.0f )
 		{
@@ -294,7 +294,7 @@ ID_INLINE bool SbVec3::FixDegenerateNormal()
 		}
 		return false;
 	}
-	else if( idMath::Fabs( z ) == 1.0f )
+	else if( SbMath::Fabs( z ) == 1.0f )
 	{
 		if( x != 0.0f || y != 0.0f )
 		{
@@ -343,7 +343,7 @@ ID_INLINE SbVec3& SbVec3::Cross( const SbVec3& a, const SbVec3& b )
 
 ID_INLINE float SbVec3::Length() const
 {
-	return ( float )idMath::Sqrt( x * x + y * y + z * z );
+	return ( float )SbMath::Sqrt( x * x + y * y + z * z );
 }
 
 ID_INLINE float SbVec3::LengthSqr() const
@@ -356,7 +356,7 @@ ID_INLINE float SbVec3::LengthFast() const
 	float sqrLength;
 	
 	sqrLength = x * x + y * y + z * z;
-	return sqrLength * idMath::InvSqrt( sqrLength );
+	return sqrLength * SbMath::InvSqrt( sqrLength );
 }
 
 ID_INLINE float SbVec3::Normalize()
@@ -364,7 +364,7 @@ ID_INLINE float SbVec3::Normalize()
 	float sqrLength, invLength;
 	
 	sqrLength = x * x + y * y + z * z;
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	x *= invLength;
 	y *= invLength;
 	z *= invLength;
@@ -373,7 +373,7 @@ ID_INLINE float SbVec3::Normalize()
 
 ID_INLINE SbVec3 SbVec3::Truncate( float length ) const
 {
-	if( length < idMath::FLT_SMALLEST_NON_DENORMAL )
+	if( length < SbMath::FLT_SMALLEST_NON_DENORMAL )
 	{
 		return vec3_zero;
 	}
@@ -382,7 +382,7 @@ ID_INLINE SbVec3 SbVec3::Truncate( float length ) const
 		float length2 = LengthSqr();
 		if( length2 > length * length )
 		{
-			float ilength = length * idMath::InvSqrt( length2 );
+			float ilength = length * SbMath::InvSqrt( length2 );
 			return *this * ilength;
 		}
 	}
@@ -469,7 +469,7 @@ ID_INLINE void SbVec3::NormalVectors( SbVec3& left, SbVec3& down ) const
 	}
 	else
 	{
-		d = idMath::InvSqrt( d );
+		d = SbMath::InvSqrt( d );
 		left[0] = -y * d;
 		left[1] = x * d;
 		left[2] = 0;
@@ -481,10 +481,10 @@ ID_INLINE void SbVec3::OrthogonalBasis( SbVec3& left, SbVec3& up ) const
 {
 	float l, s;
 	
-	if( idMath::Fabs( z ) > 0.7f )
+	if( SbMath::Fabs( z ) > 0.7f )
 	{
 		l = y * y + z * z;
-		s = idMath::InvSqrt( l );
+		s = SbMath::InvSqrt( l );
 		up[0] = 0;
 		up[1] = z * s;
 		up[2] = -y * s;
@@ -495,7 +495,7 @@ ID_INLINE void SbVec3::OrthogonalBasis( SbVec3& left, SbVec3& up ) const
 	else
 	{
 		l = x * x + y * y;
-		s = idMath::InvSqrt( l );
+		s = SbMath::InvSqrt( l );
 		left[0] = -y * s;
 		left[1] = x * s;
 		left[2] = 0;
@@ -535,7 +535,7 @@ ID_INLINE bool SbVec3::ProjectAlongPlane( const SbVec3& normal, const float epsi
 	// normalize so a fixed epsilon can be used
 	cross.Normalize();
 	len = normal * cross;
-	if( idMath::Fabs( len ) < epsilon )
+	if( SbMath::Fabs( len ) < epsilon )
 	{
 		return false;
 	}

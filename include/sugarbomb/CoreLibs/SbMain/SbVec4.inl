@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -155,22 +155,22 @@ ID_INLINE bool SbVec4::Compare( const SbVec4& a ) const
 
 ID_INLINE bool SbVec4::Compare( const SbVec4& a, const float epsilon ) const
 {
-	if( idMath::Fabs( x - a.x ) > epsilon )
+	if( SbMath::Fabs( x - a.x ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( y - a.y ) > epsilon )
+	if( SbMath::Fabs( y - a.y ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( z - a.z ) > epsilon )
+	if( SbMath::Fabs( z - a.z ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( w - a.w ) > epsilon )
+	if( SbMath::Fabs( w - a.w ) > epsilon )
 	{
 		return false;
 	}
@@ -190,7 +190,7 @@ ID_INLINE bool SbVec4::operator!=( const SbVec4& a ) const
 
 ID_INLINE float SbVec4::Length() const
 {
-	return ( float )idMath::Sqrt( x * x + y * y + z * z + w * w );
+	return ( float )SbMath::Sqrt( x * x + y * y + z * z + w * w );
 }
 
 ID_INLINE float SbVec4::LengthSqr() const
@@ -203,7 +203,7 @@ ID_INLINE float SbVec4::Normalize()
 	float sqrLength, invLength;
 	
 	sqrLength = x * x + y * y + z * z + w * w;
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	x *= invLength;
 	y *= invLength;
 	z *= invLength;
@@ -216,7 +216,7 @@ ID_INLINE float SbVec4::NormalizeFast()
 	float sqrLength, invLength;
 	
 	sqrLength = x * x + y * y + z * z + w * w;
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	x *= invLength;
 	y *= invLength;
 	z *= invLength;

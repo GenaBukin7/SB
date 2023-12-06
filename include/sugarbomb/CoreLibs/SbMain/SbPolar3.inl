@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020, 2023 SugarBombEngine Developers
+Copyright (C) 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,52 +29,57 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include <CoreLibs/SbMain/SbVec5.hpp>
-
-#include <CoreLibs/SbMain/SbString.hpp>
+#pragma once
 
 //*****************************************************************************
 
-namespace sbe::SbMain
+ID_INLINE SbPolar3::SbPolar3()
 {
+}
 
-//===============================================================
-//
-//	idVec5
-//
-//===============================================================
-
-SbVec5 vec5_origin(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-
-/*
-=============
-idVec5::ToString
-=============
-*/
-const char *SbVec5::ToString(int precision) const
+ID_INLINE SbPolar3::SbPolar3( const float radius, const float theta, const float phi )
 {
-	return SbString::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
-};
+	assert( radius > 0 );
+	this->radius = radius;
+	this->theta = theta;
+	this->phi = phi;
+}
 
-/*
-=============
-idVec5::Lerp
-=============
-*/
-void SbVec5::Lerp(const SbVec5& v1, const SbVec5 &v2, const float l)
+ID_INLINE void SbPolar3::Set( const float radius, const float theta, const float phi )
 {
-	if(l <= 0.0f)
-		(*this) = v1;
-	else if(l >= 1.0f)
-		(*this) = v2;
-	else
-	{
-		x = v1.x + l * (v2.x - v1.x);
-		y = v1.y + l * (v2.y - v1.y);
-		z = v1.z + l * (v2.z - v1.z);
-		s = v1.s + l * (v2.s - v1.s);
-		t = v1.t + l * (v2.t - v1.t);
-	};
-};
+	assert( radius > 0 );
+	this->radius = radius;
+	this->theta = theta;
+	this->phi = phi;
+}
 
-}; // namespace sbe::SbMain
+ID_INLINE float SbPolar3::operator[]( const int index ) const
+{
+	return ( &radius )[ index ];
+}
+
+ID_INLINE float& SbPolar3::operator[]( const int index )
+{
+	return ( &radius )[ index ];
+}
+
+ID_INLINE SbPolar3 SbPolar3::operator-() const
+{
+	return SbPolar3( radius, -theta, -phi );
+}
+
+ID_INLINE SbPolar3& SbPolar3::operator=( const SbPolar3& a )
+{
+	radius = a.radius;
+	theta = a.theta;
+	phi = a.phi;
+	return *this;
+}
+
+ID_INLINE SbVec3 SbPolar3::ToVec3() const
+{
+	float sp, cp, st, ct;
+	SbMath::SinCos( phi, sp, cp );
+	SbMath::SinCos( theta, st, ct );
+	return SbVec3( cp * radius * ct, cp * radius * st, radius * sp );
+}

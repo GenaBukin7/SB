@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -61,12 +61,12 @@ ID_INLINE bool SbVec2::Compare( const SbVec2& a ) const
 
 ID_INLINE bool SbVec2::Compare( const SbVec2& a, const float epsilon ) const
 {
-	if( idMath::Fabs( x - a.x ) > epsilon )
+	if( SbMath::Fabs( x - a.x ) > epsilon )
 	{
 		return false;
 	}
 	
-	if( idMath::Fabs( y - a.y ) > epsilon )
+	if( SbMath::Fabs( y - a.y ) > epsilon )
 	{
 		return false;
 	}
@@ -96,7 +96,7 @@ ID_INLINE float& SbVec2::operator[]( int index )
 
 ID_INLINE float SbVec2::Length() const
 {
-	return ( float )idMath::Sqrt( x * x + y * y );
+	return ( float )SbMath::Sqrt( x * x + y * y );
 }
 
 ID_INLINE float SbVec2::LengthFast() const
@@ -104,7 +104,7 @@ ID_INLINE float SbVec2::LengthFast() const
 	float sqrLength;
 	
 	sqrLength = x * x + y * y;
-	return sqrLength * idMath::InvSqrt( sqrLength );
+	return sqrLength * SbMath::InvSqrt( sqrLength );
 }
 
 ID_INLINE float SbVec2::LengthSqr() const
@@ -117,7 +117,7 @@ ID_INLINE float SbVec2::Normalize()
 	float sqrLength, invLength;
 	
 	sqrLength = x * x + y * y;
-	invLength = idMath::InvSqrt( sqrLength );
+	invLength = SbMath::InvSqrt( sqrLength );
 	x *= invLength;
 	y *= invLength;
 	return invLength * sqrLength;
@@ -128,7 +128,7 @@ ID_INLINE float SbVec2::NormalizeFast()
 	float lengthSqr, invLength;
 	
 	lengthSqr = x * x + y * y;
-	invLength = idMath::InvSqrt( lengthSqr );
+	invLength = SbMath::InvSqrt( lengthSqr );
 	x *= invLength;
 	y *= invLength;
 	return invLength * lengthSqr;
@@ -136,7 +136,7 @@ ID_INLINE float SbVec2::NormalizeFast()
 
 ID_INLINE SbVec2 SbVec2::Truncate( float length ) const
 {
-	if( length < idMath::FLT_SMALLEST_NON_DENORMAL )
+	if( length < SbMath::FLT_SMALLEST_NON_DENORMAL )
 	{
 		return vec2_zero;
 	}
@@ -145,7 +145,7 @@ ID_INLINE SbVec2 SbVec2::Truncate( float length ) const
 		float length2 = LengthSqr();
 		if( length2 > length * length )
 		{
-			float ilength = length * idMath::InvSqrt( length2 );
+			float ilength = length * SbMath::InvSqrt( length2 );
 			return *this * ilength;
 		}
 	}

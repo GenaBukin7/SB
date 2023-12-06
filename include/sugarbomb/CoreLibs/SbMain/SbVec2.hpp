@@ -31,6 +31,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbMath.hpp"
+
+#include <CoreLibs/SbSystem/SbSystemDefs.hpp>
+
 //*****************************************************************************
 
 namespace sbe::SbMain

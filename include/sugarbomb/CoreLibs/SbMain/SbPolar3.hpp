@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020, 2023 SugarBombEngine Developers
+Copyright (C) 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,9 +29,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include <CoreLibs/SbMain/SbVec5.hpp>
+#pragma once
 
-#include <CoreLibs/SbMain/SbString.hpp>
+//#include "SbMath.hpp"
+#include "SbVec3.hpp"
+
+//#include <CoreLibs/SbSystem/SbSystemDefs.hpp>
 
 //*****************************************************************************
 
@@ -40,41 +43,28 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec5
+//	idPolar3
 //
 //===============================================================
 
-SbVec5 vec5_origin(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-
-/*
-=============
-idVec5::ToString
-=============
-*/
-const char *SbVec5::ToString(int precision) const
+class SbPolar3
 {
-	return SbString::FloatArrayToString(ToFloatPtr(), GetDimension(), precision);
+public:
+	float			radius, theta, phi;
+	
+	SbPolar3();
+	explicit SbPolar3( const float radius, const float theta, const float phi );
+	
+	void 			Set( const float radius, const float theta, const float phi );
+	
+	float			operator[]( const int index ) const;
+	float& 			operator[]( const int index );
+	SbPolar3		operator-() const;
+	SbPolar3& 		operator=( const SbPolar3& a );
+	
+	SbVec3			ToVec3() const;
 };
 
-/*
-=============
-idVec5::Lerp
-=============
-*/
-void SbVec5::Lerp(const SbVec5& v1, const SbVec5 &v2, const float l)
-{
-	if(l <= 0.0f)
-		(*this) = v1;
-	else if(l >= 1.0f)
-		(*this) = v2;
-	else
-	{
-		x = v1.x + l * (v2.x - v1.x);
-		y = v1.y + l * (v2.y - v1.y);
-		z = v1.z + l * (v2.z - v1.z);
-		s = v1.s + l * (v2.s - v1.s);
-		t = v1.t + l * (v2.t - v1.t);
-	};
-};
+#include "SbPolar3.inl"
 
 }; // namespace sbe::SbMain
