@@ -1,2 +1,0 @@
-add_subdirectory(f3goaty)
-add_subdirectory(sugarbomb)
