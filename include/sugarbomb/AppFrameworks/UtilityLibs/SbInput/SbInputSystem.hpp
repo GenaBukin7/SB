@@ -74,13 +74,13 @@ struct SbInputSystem
 	virtual void Update() = 0;
 	
 	///
-	//virtual SbKeyboard &GetKeyboard() const = 0;
+	virtual SbKeyboard *GetKeyboard() const = 0;
 	
 	///
-	//virtual SbMouse &GetMouse() const = 0;
+	virtual SbMouse *GetMouse() const = 0;
 	
 	///
-	//virtual SbGamepad &GetGamepad(int anIndex) const = 0;
+	virtual SbGamepad *GetGamepad(int anIndex = 0) const = 0;
 	
 	///
 	//virtual void GrabMouseCursor(bool grabIt) = 0; // TODO

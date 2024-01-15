@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023-2024 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,35 +31,78 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbInputDevice.hpp"
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct SbGamepad
+class SbVec2;
+
+struct SbGamepad : public SbInputDevice
 {
 	// gamepad input polling
 	
 	///
-	virtual bool Init() = 0;
+	//virtual bool Init() = 0;
 	
 	///
-	virtual void Shutdown() = 0;
+	//virtual void Shutdown() = 0;
 	
 	///
-	virtual void Deactivate() = 0;
+	//virtual void Deactivate() = 0;
 	
 	///
-	virtual void SetRumble(/*int anDevice, */ int rumbleLow, int rumbleHigh) = 0;
+	//virtual void SetRumble(/*int anDevice, */ int rumbleLow, int rumbleHigh) = 0;
 	
 	///
-	virtual int PollInputEvents(/*int anDevice, */) = 0;
+	//virtual int PollInputEvents(/*int anDevice, */) = 0;
 	
 	///
-	virtual int ReturnInputEvent(const int n, int &action, int &value) = 0;
+	//virtual int ReturnInputEvent(const int n, int &action, int &value) = 0;
 	
 	///
-	virtual void EndInputEvents() = 0;
+	//virtual void EndInputEvents() = 0;
+	
+	///
+	virtual void StartVibration(float afWeakMagnitude, float afStrongMagnitude, float afDuration = 0.0f) = 0;
+	
+	///
+	virtual void StopVibration() = 0;
+	
+	///
+	enum class Button : int
+	{
+		Temp
+	};
+	
+	///
+	virtual bool IsButtonPressed(Button aeButton) const = 0;
+	
+	///
+	enum class Axis : int
+	{
+		Temp
+	};
+	
+	///
+	virtual float GetAxis(Axis aeAxis) const = 0;
+	
+	///
+	virtual float GetVibrationDuration() const = 0; // TODO: non-const?
+	
+	///
+	virtual const SbVec2 &GetVibrationStrength() const = 0; // TODO: non-const?
+	
+	///
+	//virtual const SbString &GetName() const = 0;
+	
+	///
+	//virtual const SbString &GetGUID() const = 0;
+	
+	///
+	//virtual SbDict &GetInfo() const = 0;
 };
 
 }; // namespace sbe

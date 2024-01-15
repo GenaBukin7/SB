@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023-2024 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,23 +31,34 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbInputDevice.hpp"
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct SbKeyboard
+struct SbKeyboard : public SbInputDevice
 {
 	// keyboard input polling
 	
 	///
-	virtual int PollInputEvents() = 0;
+	//virtual int PollInputEvents() = 0;
 
 	///
-	virtual int ReturnInputEvent(const int n, int &key, bool &state) = 0;
+	//virtual int ReturnInputEvent(const int n, int &key, bool &state) = 0;
 
 	///
-	virtual void EndInputEvents() = 0;
+	//virtual void EndInputEvents() = 0;
+	
+	///
+	enum class Key : int
+	{
+		None
+	};
+	
+	///
+	virtual bool IsKeyPressed(Key aeKeyCode) const = 0;
 };
 
 }; // namespace sbe

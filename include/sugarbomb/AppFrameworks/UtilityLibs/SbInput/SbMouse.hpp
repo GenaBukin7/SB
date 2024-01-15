@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023-2024 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,19 +31,35 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbInputDevice.hpp"
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct SbMouse
+class SbVec2;
+
+struct SbMouse : public SbInputDevice
 {
 	static constexpr auto MAX_MOUSE_EVENTS{256};
 	
 	// mouse input polling
 	
 	///
-	virtual int PollInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2]) = 0;
+	//virtual int PollInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2]) = 0;
+	
+	///
+	enum class Button : int
+	{
+		Left
+	};
+	
+	///
+	virtual bool IsButtonPressed(Button aeButton) const = 0;
+	
+	///
+	virtual const SbVec2 &GetLastVelocity() const = 0;
 };
 
 }; // namespace sbe
