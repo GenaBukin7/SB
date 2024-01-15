@@ -23,6 +23,9 @@ LICENSE-vaultmp file for details.
 
 *******************************************************************************
 */
+
+/// @file
+
 #include "NetworkServer.hpp"
 #include "Client.hpp"
 #include "Utils.hpp"
@@ -48,8 +51,8 @@ NetworkResponse NetworkServer::ProcessEvent(unsigned char id)
 
 		default:
 			throw VaultException("Unhandled event type %d", id).stacktrace();
-	}
-}
+	};
+};
 
 NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 {
@@ -90,7 +93,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					debug.print("Lost connection (", data->systemAddress.ToString(), ")");
 #endif
 					break;
-			}
+			};
 
 			response = Server::Disconnect(data->guid, data->data[0] == ID_DISCONNECTION_NOTIFICATION ? Reason::ID_REASON_NONE : Reason::ID_REASON_ERROR);
 			break;
@@ -134,13 +137,13 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					PacketFactory::Access<pTypes::ID_GAME_AUTH>(packet, name, pwd);
 					response = Server::Authenticate(data->guid, std::move(name), std::move(pwd));
 					break;
-				}
+				};
 
 				case pTypes::ID_GAME_LOAD:
 				{
 					response = Server::LoadGame(data->guid);
 					break;
-				}
+				};
 
 				case pTypes::ID_GAME_CHAT:
 				{
@@ -148,7 +151,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					PacketFactory::Access<pTypes::ID_GAME_CHAT>(packet, message);
 					response = Server::ChatMessage(data->guid, std::move(message));
 					break;
-				}
+				};
 
 				case pTypes::ID_GAME_END:
 				{
@@ -156,14 +159,14 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					PacketFactory::Access<pTypes::ID_GAME_END>(packet, reason);
 					response = Server::Disconnect(data->guid, reason);
 					break;
-				}
+				};
 
 				case pTypes::ID_PLAYER_NEW:
 				{
 					NetworkID id = GameFactory::Create<Player, FailPolicy::Exception>(packet);
 					response = Server::NewPlayer(data->guid, id);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_POS:
 				{
@@ -173,7 +176,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Object>(id);
 					response = Server::GetPos(data->guid, reference.get(), X, Y, Z);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_ANGLE:
 				{
@@ -183,7 +186,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Object>(id);
 					response = Server::GetAngle(data->guid, reference.get(), X, 0.00, Z);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_CELL:
 				{
@@ -194,7 +197,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Object>(id);
 					response = Server::GetCell(data->guid, reference.get(), cell);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_ACTIVATE:
 				{
@@ -203,7 +206,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Reference>({id, actor});
 					response = Server::GetActivate(data->guid, reference[0].get(), reference[1].get());
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_STATE:
 				{
@@ -215,7 +218,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Actor>(id);
 					response = Server::GetActorState(data->guid, reference.get(), idle, moving, movingxy, weapon, alerted, sneaking);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_DEAD:
 				{
@@ -227,7 +230,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Player>(id);
 					response = Server::GetActorDead(data->guid, reference.get(), dead, limbs, cause);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_FIREWEAPON:
 				{
@@ -237,7 +240,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Player>(id);
 					response = Server::GetActorFireWeapon(data->guid, reference.get());
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_CONTROL:
 				{
@@ -247,7 +250,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Player>(id);
 					response = Server::GetPlayerControl(data->guid, reference.get(), control, key);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WMODE:
 				{
@@ -255,7 +258,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					PacketFactory::Access<pTypes::ID_UPDATE_WMODE>(packet, enabled);
 					response = Server::GetWindowMode(data->guid, enabled);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WCLICK:
 				{
@@ -264,7 +267,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Window>(id);
 					response = Server::GetWindowClick(data->guid, reference.get());
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WRETURN:
 				{
@@ -273,7 +276,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Window>(id);
 					response = Server::GetWindowReturn(data->guid, reference.get());
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WTEXT:
 				{
@@ -283,7 +286,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Window>(id);
 					response = Server::GetWindowText(data->guid, reference.get(), text);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WSELECTED:
 				{
@@ -293,7 +296,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<Checkbox>(id);
 					response = Server::GetCheckboxSelected(data->guid, reference.get(), selected);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WRSELECTED:
 				{
@@ -303,7 +306,7 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<RadioButton>({id, previous});
 					response = Server::GetRadioButtonSelected(data->guid, reference[0].get(), reference[1]);
 					break;
-				}
+				};
 
 				case pTypes::ID_UPDATE_WLSELECTED:
 				{
@@ -313,13 +316,13 @@ NetworkResponse NetworkServer::ProcessPacket(Packet* data)
 					auto reference = GameFactory::Get<ListItem>(id);
 					response = Server::GetListItemSelected(data->guid, reference.get(), selected);
 					break;
-				}
+				};
 
 				default:
 					throw VaultException("Unhandled packet type %d", data->data[0]).stacktrace();
-			}
-		}
-	}
+			};
+		};
+	};
 
 	return response;
-}
+};

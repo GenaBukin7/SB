@@ -50,15 +50,13 @@ int SbGameThread::Run()
 	
 	// debugging tool to test frame dropping behavior
 	if( com_sleepGame.GetInteger() )
-	{
 		Sys_Sleep( com_sleepGame.GetInteger() );
-	}
 	
 	if( numGameFrames == 0 )
 	{
 		// Ensure there's no stale gameReturn data from a paused game
 		ret = gameReturn_t();
-	}
+	};
 	
 	if( isClient )
 	{
@@ -67,14 +65,11 @@ int SbGameThread::Run()
 		{
 			SCOPED_PROFILE_EVENT( "Client Prediction" );
 			if( userCmdMgr )
-			{
-				game->ClientRunFrame( *userCmdMgr, ( i == numGameFrames - 1 ), ret );
-			}
+				mpGame->ClientRunFrame( *userCmdMgr, ( i == numGameFrames - 1 ), ret ); // TODO
+
 			if( ret.syncNextGameFrame || ret.sessionCommand[0] != 0 )
-			{
 				break;
-			}
-		}
+		};
 	}
 	else
 	{
@@ -83,24 +78,17 @@ int SbGameThread::Run()
 		{
 			SCOPED_PROFILE_EVENT( "GameTic" );
 			if( userCmdMgr )
-			{
-				game->RunFrame( *userCmdMgr, ret );
-			}
+				mpGame->RunFrame( *userCmdMgr, ret ); // TODO
+
 			if( ret.syncNextGameFrame || ret.sessionCommand[0] != 0 )
-			{
 				break;
-			}
-		}
-	}
+		};
+	};
 	
 	// we should have consumed all of our usercmds
 	if( userCmdMgr )
-	{
 		if( userCmdMgr->HasUserCmdForPlayer( game->GetLocalClientNum() ) )
-		{
 			idLib::Printf( "idGameThread::Run: didn't consume all usercmds\n" );
-		}
-	}
 	
 	commonLocal.frameTiming.finishGameTime = Sys_Microseconds();
 	
@@ -110,7 +98,7 @@ int SbGameThread::Run()
 	{
 		SCOPED_PROFILE_EVENT( "Draw" );
 		commonLocal.Draw();
-	}
+	};
 	
 	commonLocal.frameTiming.finishDrawTime = Sys_Microseconds();
 	
@@ -119,7 +107,7 @@ int SbGameThread::Run()
 	SetThreadTotalTime( ( commonLocal.frameTiming.finishDrawTime - commonLocal.frameTiming.startGameTime ) / 1000 );
 	
 	return 0;
-}
+};
 
 /*
 ===============
@@ -149,12 +137,10 @@ gameReturn_t SbGameThread::RunGameAndDraw( int numGameFrames_, idUserCmdMgr& use
 		Run();
 	}
 	else
-	{
 		this->SignalWork();
-	}
 	
 	// return the latched result while the thread runs in the background
 	return latchedRet;
-}
+};
 
 }; // namespace sbe::SbGameFramework

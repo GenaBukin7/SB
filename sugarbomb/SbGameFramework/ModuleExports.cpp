@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -26,10 +26,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+#include <functional>
+
 #include "SbGameFramework.hpp"
 #include "SbGameFramework/SbModuleAPI.hpp"
 #include "SbGameExternal.hpp"
 #include "SbNetworkExternal.hpp"
+#include "SbPhysicsExternal.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -41,23 +44,33 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-sbe::IGame *CreateGame(sbe::ISystem &aSystem)
+sbe::IGame *CreateGame(sbe::IRenderSystem &aRenderSystem, sbe::ISoundSystem &aSoundSystem, sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
 	static sbe::SbGameFramework::SbGameExternal SbGameModule(aSystem);
 	return SbGameModule.GetGame();
 #else
-	return new sbe::SbGame::SbGame();
+	return new sbe::SbGame::SbGame(aSystem);
 #endif
 };
 
 sbe::INetworkSystem *CreateNetworkSystem(sbe::ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_NETWORK_HARD_LINKED
 	static sbe::SbGameFramework::SbNetworkExternal SbNetworkModule(aSystem);
 	return SbNetworkModule.GetNetworkSystem();
 #else
-	return new sbe::SbNetwork::SbNetworkSystem();
+	return new sbe::SbNetwork::SbNetworkSystem(aSystem);
+#endif
+};
+
+sbe::IPhysicsSystem *CreatePhysicsSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_PHYSICS_HARD_LINKED
+	static sbe::SbGameFramework::SbPhysicsExternal SbPhysicsModule(aSystem);
+	return SbPhysicsModule.GetPhysicsSystem();
+#else
+	return new sbe::SbPhysics::SbPhysicsSystem(aSystem);
 #endif
 };
 
@@ -73,7 +86,7 @@ C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(sbe::gameFrameworkImpor
 		static sbe::gameFrameworkExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::GAMEFRAMEWORK_API_VERSION;
-		ModuleExports.gameFramework = &GameFramework;
+		ModuleExports.gameFramework = std::addressof(GameFramework);
 		
 		return &ModuleExports;
 	};

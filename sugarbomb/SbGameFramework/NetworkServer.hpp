@@ -23,6 +23,9 @@ LICENSE-vaultmp file for details.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma once
 
 #include "vaultserver.hpp"
@@ -34,27 +37,26 @@ LICENSE-vaultmp file for details.
 
 class NetworkServer : public Network
 {
-		friend class Dedicated;
+	friend class Dedicated;
 
-	private:
-		NetworkServer() = delete;
+private:
+	NetworkServer() = delete;
 
 #ifdef VAULTMP_DEBUG
-		static DebugInput<NetworkServer> debug;
+	static DebugInput<NetworkServer> debug;
 #endif
 
-	public:
-		/**
-		 * \brief Processes an event of a given type
-		 *
-		 * Returns a NetworkResponse to send to the client(s)
-		 */
-		static NetworkResponse ProcessEvent(unsigned char id);
-		/**
-		 * \brief Processes a packet from a client
-		 *
-		 * Returns a NetworkResponse to send to the client(s)
-		 */
-		static NetworkResponse ProcessPacket(RakNet::Packet* data);
-
+public:
+	/**
+	 * \brief Processes an event of a given type
+	 *
+	 * Returns a NetworkResponse to send to the client(s)
+	 */
+	static NetworkResponse ProcessEvent(unsigned char id);
+	/**
+	 * \brief Processes a packet from a client
+	 *
+	 * Returns a NetworkResponse to send to the client(s)
+	 */
+	static NetworkResponse ProcessPacket(RakNet::Packet* data);
 };

@@ -23,6 +23,9 @@ LICENSE-vaultmp file for details.
 
 *******************************************************************************
 */
+
+/// @file
+
 #include "Client.hpp"
 
 #include <algorithm>

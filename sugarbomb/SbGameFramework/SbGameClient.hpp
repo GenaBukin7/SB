@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -27,9 +27,16 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-namespace sbe::SbGameFramework
+#include "SbNetwork/INetPeer.hpp"
+
 //*****************************************************************************
 
+namespace sbe
+{
+
+//struct INetPeer;
+
+namespace SbGameFramework
 {
 
 class SbGameClient
@@ -41,9 +48,9 @@ public:
 	
 	void Disconnect(const char *asReason);
 	
-	bool IsLocal() const;
+	bool IsLocal() const {return mpNetPeer->IsLocal();}
 private:
 	netadr_t mAdr{};
 };
 
-}; // namespace sbe::SbGameFramework
+};}; // namespace sbe::SbGameFramework

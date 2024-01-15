@@ -2,33 +2,24 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
-SugarBombEngine is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+SugarBombEngine is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-SugarBombEngine is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+SugarBombEngine is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
-In addition, SugarBombEngine is using id Tech 4 (BFG) pieces and thus
-subject to certain additional terms (all header and source files which 
-contains such pieces has this additional part appended to the license 
-header). You should have received a copy of these additional terms 
-stated in a separate file (LICENSE-idTech4) which accompanied the 
-SugarBombEngine source code. If not, please request a copy in 
+In addition, SugarBombEngine is using id Tech 4 (BFG) pieces and thus subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the SugarBombEngine source code. If not, please request a copy in 
 writing from id Software at the address below.
 
-If you have questions concerning this license or the applicable additional
-terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
 Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
@@ -37,6 +28,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 /// @file
 
 //*****************************************************************************
+
+#include <cstdio> // TODO: temp
+
+#include <iniparser.h>
 
 #include "SbGameFramework.hpp"
 
@@ -54,6 +49,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbRenderSystemExternal.hpp"
 #include "SbInputSystemExternal.hpp"
 #include "SbSoundSystemExternal.hpp"
+#include "SbGameExternal.hpp"
+
 //*****************************************************************************
 
 namespace sbe
@@ -136,6 +133,8 @@ void SbGameFramework::Shutdown()
 	mNetworkSystem.Shutdown();
 	mSoundSystem.Shutdown();
 	
+	
+	SavePrefsConfig();
 };
 
 void SbGameFramework::Frame(float afTimeStep)
@@ -249,53 +248,53 @@ ISystem *SbGameFramework::CreateSystem()
 #endif
 };
 
-IRenderSystem *SbGameFramework::CreateRenderSystem(ISystem &aSystem)
+IRenderSystem *SbGameFramework::CreateRenderSystem()
 {
 #ifndef SBE_RENDER_HARD_LINKED
-	static SbRenderSystemExternal SbRenderModule(aSystem);
+	static SbRenderSystemExternal SbRenderModule(mSystem);
 	return SbRenderModule.GetRenderSystem();
 #else
-	return new SbRenderer::SbRenderSystem(aSystem);
+	return new SbRenderer::SbRenderSystem(mSystem);
 #endif
 };
 
-IInputSystem *SbGameFramework::CreateInputSystem(ISystem &aSystem)
+IInputSystem *SbGameFramework::CreateInputSystem()
 {
 #ifndef SBE_INPUT_HARD_LINKED
-	static SbInputSystemExternal SbInputModule(aSystem);
+	static SbInputSystemExternal SbInputModule(mSystem);
 	return SbInputModule.GetInputSystem();
 #else
-	return new SbInput::SbInputSystem(aSystem);
+	return new SbInput::SbInputSystem(mSystem);
 #endif
 };
 
-ISoundSystem *SbGameFramework::CreateSoundSystem(ISystem &aSystem)
+ISoundSystem *SbGameFramework::CreateSoundSystem()
 {
 #ifndef SBE_SOUND_HARD_LINKED
-	static SbSoundSystemExternal SbSoundModule(aSystem);
+	static SbSoundSystemExternal SbSoundModule(mSystem);
 	return SbSoundModule.GetSoundSystem();
 #else
-	return new SbSound::SbSoundSystem(aSystem);
+	return new SbSound::SbSoundSystem(mSystem);
 #endif
 };
 
-INetworkSystem *SbGameFramework::CreateNetworkSystem(ISystem &aSystem)
+INetworkSystem *SbGameFramework::CreateNetworkSystem()
 {
 #ifndef SBE_NETWORK_HARD_LINKED
-	static SbNetworkSystemExternal SbNetworkModule(aSystem);
+	static SbNetworkSystemExternal SbNetworkModule(mSystem);
 	return SbNetworkModule.GetNetworkSystem();
 #else
-	return new SbNetwork::SbNetworkSystem(aSystem);
+	return new SbNetwork::SbNetworkSystem(mSystem);
 #endif
 };
 
-IPhysicsSystem *SbGameFramework::CreatePhysicsSystem(ISystem &aSystem)
+IPhysicsSystem *SbGameFramework::CreatePhysicsSystem()
 {
 #ifndef SBE_PHYSICS_HARD_LINKED
-	static SbPhysicsSystemExternal SbPhysicsModule(aSystem);
+	static SbPhysicsSystemExternal SbPhysicsModule(mSystem);
 	return SbPhysicsModule.GetPhysicsSystem();
 #else
-	return new SbPhysics::SbPhysicsSystem(aSystem);
+	return new SbPhysics::SbPhysicsSystem(mSystem);
 #endif
 };
 
@@ -334,6 +333,11 @@ bool SbGameFramework::LoadPrefsConfig()
 	};
 	
 	return false;
+};
+
+void SbGameFramework::SavePrefsConfig()
+{
+	// TODO
 };
 
 }; // namespace sbe::SbGameFramework

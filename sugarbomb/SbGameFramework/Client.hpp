@@ -24,6 +24,8 @@ LICENSE-vaultmp file for details.
 *******************************************************************************
 */
 
+/// @file
+
 #pragma once
 
 #include <vector>
@@ -42,29 +44,29 @@ class Player;
 
 class Client
 {
-	private:
-		RakNet::RakNetGUID guid;
-		unsigned int ID;
-		RakNet::NetworkID player;
+private:
+	RakNet::RakNetGUID guid;
+	unsigned int ID;
+	RakNet::NetworkID player;
 
-		Client(const Client&) = delete;
-		Client& operator=(const Client&) = delete;
-	public:
-		Client(RakNet::RakNetGUID guid, RakNet::NetworkID player);
-		~Client();
+	Client(const Client&) = delete;
+	Client& operator=(const Client&) = delete;
+public:
+	Client(RakNet::RakNetGUID guid, RakNet::NetworkID player);
+	~Client();
 
-		/**
-		 * \brief Returns the RakNetGUID
-		 */
-		RakNet::RakNetGUID GetGUID();
-		/**
-		 * \brief Returns the ID
-		 */
-		unsigned int GetID();
-		/**
-		 * \brief Returns the NetworkID of the coressponding Player instance
-		 */
-		RakNet::NetworkID GetPlayer();
+	/**
+	 * \brief Returns the RakNetGUID
+	 */
+	RakNet::RakNetGUID GetGUID();
+	/**
+	 * \brief Returns the ID
+	 */
+	unsigned int GetID();
+	/**
+	 * \brief Returns the NetworkID of the coressponding Player instance
+	 */
+	RakNet::NetworkID GetPlayer();
 };
 
 class ClientHandler

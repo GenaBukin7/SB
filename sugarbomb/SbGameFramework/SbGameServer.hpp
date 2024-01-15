@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -22,7 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
-/// @brief game server - a type of server which treat net clients/connections as players
+/// @brief game server - a type of server which treats net clients/connections as players
 
 //*****************************************************************************
 
@@ -32,7 +32,12 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-namespace sbe::SbGameFramework
+namespace sbe
+{
+
+struct INetServer;
+
+namespace SbGameFramework
 {
 
 class SbGameClient;
@@ -43,11 +48,11 @@ class SbGameServer
 public:
 	SbGameServer(uint32_t anPort);
 	
-	SbGameClient *GetClient(int anIndex) const;
+	SbGameClient *GetClient(int anIndex) const {return mvClients.at(anIndex);}
 private:
 	tGameClientVec mvClients;
 	
-	INetServer *mpServer{nullptr};
+	INetServer *mpNetServer{nullptr};
 };
 
-}; // namespace sbe::SbGameFramework
+};}; // namespace sbe::SbGameFramework
