@@ -7,9 +7,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup CMake
-        uses: jwlawson/actions-cmake@v1
-        with:
-          cmake_args: -DCMAKE_BUILD_TYPE=Release
+      - name: Install CMake
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+      - name: Clone iniparser
+        run: git clone https://github.com/ndevilla/iniparser.git libs/iniparser
       - name: Build
-        run: cmake --build .
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
