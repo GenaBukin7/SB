@@ -10,7 +10,10 @@ jobs:
       - name: Install CMake
         run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
       - name: Clone iniparser
-        run: git clone https://github.com/ndevilla/iniparser.git libs/iniparser
+        run: |
+          if [ ! -d "libs/iniparser" ]; then
+            git clone https://github.com/ndevilla/iniparser.git libs/iniparser
+          fi
       - name: Build
         run: |
           mkdir build
