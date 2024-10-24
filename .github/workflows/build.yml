@@ -1,0 +1,15 @@
+name: Build Project
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup CMake
+        uses: jwlawson/actions-cmake@v1
+        with:
+          cmake_args: -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build .
